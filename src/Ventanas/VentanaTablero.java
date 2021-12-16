@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Ventanas;
 
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
@@ -58,28 +54,29 @@ public class VentanaTablero extends JFrame {
 
         this.addMouseListener(new MouseListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseClicked(MouseEvent me) {
             }
 
             @Override
-            public void mousePressed(MouseEvent e) {
-                System.out.println("pos x: " + e.getX());
-                System.out.println("pos y: " + e.getY());
-                solucionTablero(e.getX(), e.getY());
+            public void mousePressed(MouseEvent me) {
+                double x = me.getX();
+                double y = me.getY();
+                
+                System.out.println("x: " + x);
+                System.out.println("y: " + y);
             }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
+            public void mouseReleased(MouseEvent me) {
             }
 
             @Override
-            public void mouseEntered(MouseEvent e) {
+            public void mouseEntered(MouseEvent me) {
             }
 
             @Override
-            public void mouseExited(MouseEvent e) {
+            public void mouseExited(MouseEvent me) {
             }
-
         });
     }
 
@@ -90,21 +87,12 @@ public class VentanaTablero extends JFrame {
 
                 // Blanco par, negro impar
                 if ((i + j) % 2 == 0) {
-                    if (tablero.getValor(i, j) == 0) {
-                        imagen = new ImageIcon("imagenes/white.jpg");
-                        casillas[i][j].setIcon(imagen);
-                    } else {
-                        setReina(i, j);
-                    }
+                    imagen = new ImageIcon("imagenes/white.jpg");
+                    casillas[i][j].setIcon(imagen);
 
                 } else {
-                    if (tablero.getValor(i, j) == 0) {
-                        imagen = new ImageIcon("imagenes/black.jpg");
-                        casillas[i][j].setIcon(imagen);
-                    } else {
-                        setReina(i, j);
-                    }
-
+                    imagen = new ImageIcon("imagenes/black.jpg");
+                    casillas[i][j].setIcon(imagen);
                 }
             }
         }
@@ -130,7 +118,13 @@ public class VentanaTablero extends JFrame {
         tablero = tableroAux;
     }
 
-    private void setReina(int x, int y) {       
+    /**
+     * Método que coloca una reina en la interfaz gráfica del tablero
+     * 
+     * @param x
+     * @param y 
+     */
+    private void setReina(int x, int y) {
         imagen = new ImageIcon("imagenes/reina.png");
         casillas[x][y].setIcon(new ImageIcon(imagen.getImage().getScaledInstance(TAMAÑO_CASILLA - 20, TAMAÑO_CASILLA - 20, Image.SCALE_DEFAULT)));
         casillas[x][y].setOpaque(true);

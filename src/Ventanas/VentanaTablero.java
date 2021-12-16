@@ -5,7 +5,6 @@
  */
 package Ventanas;
 
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
@@ -23,7 +22,7 @@ public class VentanaTablero extends JFrame {
 
     private int tamaño;
     private Tablero tablero;
-    private static final String RUTA_REINA = "Imagenes/queen.png";
+    private static final String RUTA_REINA = "imagenes/reina.png";
 
     private JButton[][] casillas;
     private ImageIcon imagen;
@@ -60,9 +59,6 @@ public class VentanaTablero extends JFrame {
         this.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("pos x: " + e.getX());
-                System.out.println("pos y: " + e.getY());
-                solucionTablero(e.getX(), e.getY());
             }
 
             @Override
@@ -74,17 +70,14 @@ public class VentanaTablero extends JFrame {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
         });
@@ -98,7 +91,6 @@ public class VentanaTablero extends JFrame {
                 // Blanco par, negro impar
                 if ((i + j) % 2 == 0) {
                     if (tablero.getValor(i, j) == 0) {
-                        casillas[i][j].setBackground(Color.white);
                         imagen = new ImageIcon("imagenes/white.jpg");
                         casillas[i][j].setIcon(imagen);
                     } else {
@@ -107,7 +99,6 @@ public class VentanaTablero extends JFrame {
 
                 } else {
                     if (tablero.getValor(i, j) == 0) {
-                        casillas[i][j].setBackground(Color.black);
                         imagen = new ImageIcon("imagenes/black.jpg");
                         casillas[i][j].setIcon(imagen);
                     } else {
@@ -139,8 +130,8 @@ public class VentanaTablero extends JFrame {
         tablero = tableroAux;
     }
 
-    private void setReina(int x, int y) {
-        imagen = new ImageIcon(RUTA_REINA);
+    private void setReina(int x, int y) {       
+        imagen = new ImageIcon("imagenes/reina.png");
         casillas[x][y].setIcon(new ImageIcon(imagen.getImage().getScaledInstance(TAMAÑO_CASILLA - 20, TAMAÑO_CASILLA - 20, Image.SCALE_DEFAULT)));
         casillas[x][y].setOpaque(true);
     }

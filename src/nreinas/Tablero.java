@@ -22,6 +22,16 @@ public class Tablero {
         solucion(tablero, tamaño, 0);
     }
     
+    public Tablero(int tamaño, int x, int y) {
+        this.tablero = new int[tamaño][tamaño];
+        this.tamaño = tamaño;
+        
+        initTablero();
+        // Introducimos la primera reina en la posición pasada por paráemetro
+        tablero[x][y] = 1;
+        solucion(tablero, tamaño, 1);
+    }
+    
     private void initTablero() {
         for (int i = 0; i < tamaño; i++) {
             for (int j = 0; j < tamaño; j++) {
@@ -86,6 +96,10 @@ public class Tablero {
         }
          
         return true;
+    }
+    
+    public int getValor(int x, int y) {
+        return tablero[x][y];
     }
     
     @Override

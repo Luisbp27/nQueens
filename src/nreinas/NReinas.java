@@ -6,6 +6,7 @@
 package nreinas;
 
 import Ventanas.VentanaTablero;
+import java.util.Scanner;
 
 /**
  *
@@ -17,7 +18,12 @@ public class NReinas {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        VentanaTablero ventanaTablero = new VentanaTablero(4);
+        System.out.println("Introduce la dimensión del tablero: ");
+        Scanner reader = new Scanner(System.in);
+        int n = reader.nextInt();
+        
+        Tablero tablero = new Tablero(n);
+        VentanaTablero ventanaTablero = new VentanaTablero(tablero, n);
         
         ventanaTablero.setVisible(true);
     }

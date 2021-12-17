@@ -3,8 +3,6 @@ package Ventanas;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,20 +16,28 @@ import javax.swing.JTextField;
  */
 public class VentanaInicio extends JFrame {
 
-    private static final int ANCHURA = 300;
-    private static final int ALTURA = 400;
+    public static final int ANCHURA = 300;
+    public static final int ALTURA = 400;
 
     private JPanel panel;
     private JTextField texto;
     private JButton intro;
     private JLabel titulo;
 
+    /**
+     * Método constructor de la clase
+     * 
+     */
     public VentanaInicio() {
         super("Programa N-Reinas");
 
         initComponents();
     }
 
+    /**
+     * Método que gestiona los componentes de la ventana
+     * 
+     */
     private void initComponents() {
         this.setSize(ANCHURA, ALTURA);
         this.setLocationRelativeTo(null);
@@ -77,9 +83,5 @@ public class VentanaInicio extends JFrame {
         this.panel.setBounds(50, ALTURA - 350, ALTURA - 200, 200);
 
         this.getContentPane().add(panel);
-    }
-
-    private void cerrarVentana() {
-        this.dispose();
     }
 }

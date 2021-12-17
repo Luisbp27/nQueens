@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package nreinas;
 
 /**
@@ -6,9 +11,14 @@ package nreinas;
  */
 public class Tablero {
     
-    private int[][] tablero;
-    private int tamaño;
+    private final int[][] tablero;
+    private final int tamaño;
     
+    /**
+     * Método constructor de la clase
+     * 
+     * @param tamaño 
+     */
     public Tablero(int tamaño) {
         this.tablero = new int[tamaño][tamaño];
         this.tamaño = tamaño;
@@ -17,6 +27,14 @@ public class Tablero {
         solucion(tablero, tamaño, 0);
     }
     
+    /**
+     * Método constructor de la clase que crea una solución a partir de una
+     * posición pasada por parámetro
+     * 
+     * @param tamaño
+     * @param x
+     * @param y 
+     */
     public Tablero(int tamaño, int x, int y) {
         this.tablero = new int[tamaño][tamaño];
         this.tamaño = tamaño;
@@ -27,6 +45,10 @@ public class Tablero {
         solucion(tablero, tamaño, 1);
     }
     
+    /**
+     * Método que inicializa el tablero
+     * 
+     */
     private void initTablero() {
         for (int i = 0; i < tamaño; i++) {
             for (int j = 0; j < tamaño; j++) {
@@ -35,6 +57,15 @@ public class Tablero {
         }
     }
     
+    /**
+     * Método recursivo que encuentra la solución implementando backtracking con
+     * poda
+     * 
+     * @param tablero
+     * @param n
+     * @param reinas
+     * @return 
+     */
     private boolean solucion(int[][] tablero, int n, int reinas) {
         if (reinas == n) {
             return true;
@@ -57,6 +88,15 @@ public class Tablero {
         return false;
     }
     
+    /**
+     * Método que comprueba si las reinas pueden matarse entre ellas. Este método
+     * es el que realmente realiza la poda
+     * 
+     * @param tablero
+     * @param fila
+     * @param columna
+     * @return 
+     */
     public boolean esPosible(int[][] tablero, int fila, int columna) {
         // Observamos las columnas
         for (int i = 0; i < this.tamaño; i++) {          
@@ -93,10 +133,30 @@ public class Tablero {
         return true;
     }
     
+    /**
+     * Método que devuelve el contenido del atributo tablero
+     * 
+     * @param x
+     * @param y
+     * @return 
+     */
     public int getValor(int x, int y) {
         return tablero[x][y];
     }
     
+    /**
+     * Método que devuelve el contenido del atributo tablero
+     * @return 
+     */
+    public int[][] getTablero() {
+        return tablero;
+    }
+    
+    /**
+     * Método que devuelve el String del Tablero
+     * 
+     * @return 
+     */
     @Override
     public String toString() {
         String s = "";

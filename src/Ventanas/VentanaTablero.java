@@ -1,10 +1,13 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Ventanas;
 
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,77 +19,88 @@ import nreinas.Tablero;
  */
 public class VentanaTablero extends JFrame {
 
-    private int tamaño;
-    private Tablero tablero;
-    private static final String RUTA_REINA = "imagenes/reina.png";
+    private final int tamaño;
+    private final Tablero tablero;
+    private final boolean solucionar;
 
     private JButton[][] casillas;
     private ImageIcon imagen;
-    private static final int TAMAÑO_CASILLA = 80;
+    private static final int CASILLA = 80;
 
+    /**
+     * Método constructor de la clase
+     * 
+     * @param n 
+     */
     public VentanaTablero(int n) {
         super("Juego de las N-Reinas");
 
         this.tamaño = n;
         this.tablero = new Tablero(tamaño);
+        this.solucionar = false;
 
         initComponents();
     }
 
+    /**
+     * Método constructor de la clase
+     * 
+     * @param tablero
+     * @param n 
+     */
     public VentanaTablero(Tablero tablero, int n) {
         super("Juego de las N-Reinas");
 
         this.tamaño = n;
-        this.tablero = new Tablero(tamaño);
+        this.tablero = tablero;
+        this.solucionar = true;
 
         initComponents();
     }
 
+    /**
+     * Método que establece los componentes necesarios de la ventana
+     * 
+     */
     private void initComponents() {
-        this.setSize(tamaño * TAMAÑO_CASILLA, tamaño * TAMAÑO_CASILLA);
+        this.setSize(tamaño * CASILLA + 16, tamaño * CASILLA + 39);
         this.setLocationRelativeTo(null);
         this.setLayout(new GridLayout(tamaño, tamaño));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(true);
+        this.setResizable(false);
 
         casillas = new JButton[tamaño][tamaño];
-        initTablero(casillas);
+        initTablero();
 
-        this.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent me) {
-            }
+        for (int i = 0; i < tamaño; i++) {
+            for (int j = 0; j < tamaño; j++) {
+                casillas[i][j].addActionListener((ActionEvent ae) -> {
+                    JButton boton = (JButton) ae.getSource();
+                    int x = boton.getX() / 78;
+                    int y = boton.getY() / 75;
 
-            @Override
-            public void mousePressed(MouseEvent me) {
-                double x = me.getX();
-                double y = me.getY();
-                
-                System.out.println("x: " + x);
-                System.out.println("y: " + y);
+                    solucionTablero(x, y);
+                });
             }
-
-            @Override
-            public void mouseReleased(MouseEvent me) {
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent me) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent me) {
-            }
-        });
+        }
     }
 
-    private void initTablero(JButton[][] casillas) {
+    /**
+     * Método que construye el tablero
+     * 
+     */
+    private void initTablero() {
         for (int i = 0; i < tamaño; i++) {
             for (int j = 0; j < tamaño; j++) {
                 casillas[i][j] = new JButton();
 
+                if (solucionar && tablero.getValor(i, j) == 1) {
+                    imagen = new ImageIcon("imagenes/reina.png");
+                    casillas[i][j].setIcon(new ImageIcon(imagen.getImage().getScaledInstance(CASILLA - 20, CASILLA - 20, Image.SCALE_DEFAULT)));
+                    casillas[i][j].setOpaque(true);
+                }
                 // Blanco par, negro impar
-                if ((i + j) % 2 == 0) {
+                else if ((i + j) % 2 == 0) {
                     imagen = new ImageIcon("imagenes/white.jpg");
                     casillas[i][j].setIcon(imagen);
 
@@ -100,9 +114,7 @@ public class VentanaTablero extends JFrame {
         for (int i = 0; i < tamaño; i++) {
             for (int j = 0; j < tamaño; j++) {
                 this.add(casillas[i][j]);
-
             }
-
         }
     }
 
@@ -114,19 +126,9 @@ public class VentanaTablero extends JFrame {
      * @param y
      */
     private void solucionTablero(int x, int y) {
-        Tablero tableroAux = new Tablero(tamaño, x, y);
-        tablero = tableroAux;
-    }
+        this.setVisible(false);
 
-    /**
-     * Método que coloca una reina en la interfaz gráfica del tablero
-     * 
-     * @param x
-     * @param y 
-     */
-    private void setReina(int x, int y) {
-        imagen = new ImageIcon("imagenes/reina.png");
-        casillas[x][y].setIcon(new ImageIcon(imagen.getImage().getScaledInstance(TAMAÑO_CASILLA - 20, TAMAÑO_CASILLA - 20, Image.SCALE_DEFAULT)));
-        casillas[x][y].setOpaque(true);
+        VentanaTablero ventanaTablero = new VentanaTablero(new Tablero(tamaño, y, x), tamaño);
+        ventanaTablero.setVisible(true);
     }
 }

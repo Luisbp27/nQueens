@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Ventanas;
 
 import java.awt.GridLayout;
@@ -69,9 +64,12 @@ public class VentanaTablero extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
 
+        // Creamos una matriz de botones
         casillas = new JButton[tamaño][tamaño];
         initTablero();
 
+        // Listener de la matriz de botones para registrar que botón se ha pulsado
+        // y realizar las correspondientes acciones
         for (int i = 0; i < tamaño; i++) {
             for (int j = 0; j < tamaño; j++) {
                 casillas[i][j].addActionListener((ActionEvent ae) -> {
@@ -86,7 +84,7 @@ public class VentanaTablero extends JFrame {
     }
 
     /**
-     * Método que construye el tablero
+     * Método que construye el tablero y visualiza las reinas
      * 
      */
     private void initTablero() {
@@ -94,6 +92,7 @@ public class VentanaTablero extends JFrame {
             for (int j = 0; j < tamaño; j++) {
                 casillas[i][j] = new JButton();
 
+                // Si solucionar == true, directamente coloca las reinas
                 if (solucionar && tablero.getValor(i, j) == 1) {
                     imagen = new ImageIcon("imagenes/reina.png");
                     casillas[i][j].setIcon(new ImageIcon(imagen.getImage().getScaledInstance(CASILLA - 20, CASILLA - 20, Image.SCALE_DEFAULT)));

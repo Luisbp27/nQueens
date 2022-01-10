@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nreinas;
 
 /**
@@ -67,12 +62,15 @@ public class Tablero {
      * @return 
      */
     private boolean solucion(int[][] tablero, int n, int reinas) {
+        // Si tenemos todas las reinas colocadas
         if (reinas == n) {
             return true;
         }
         
+        // Para toda la matriz, buscamos las combinaciones posibles
         for (int i = 0; i < tablero.length; i++) {
             for (int j = 0; j < tablero.length; j++) {
+                // Si es posible colocar la reina, lo hace
                 if (esPosible(tablero, i, j)) {
                     tablero[i][j] = 1;
                     
